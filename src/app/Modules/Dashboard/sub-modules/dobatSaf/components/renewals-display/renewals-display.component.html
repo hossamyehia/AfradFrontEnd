@@ -1,0 +1,49 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<div class="container">
+
+</div>
+<div class="space reg-border">
+  <div class="noMargin noPadding cols-4">
+    <div>
+      <h1>{{period}}</h1>
+    </div>
+    <div *ngIf="!isEmpty(data)" class="btns span-3">
+      <button type="submit" (click)="runOp(data.id, 'edit')" >تعديل</button>
+      <button type="reset" (click)="runOp(data.id, 'delete')" >حذف</button>
+    </div>
+  </div>
+  <div class="noMargin noPadding cols-3">
+    <div class="small">
+      <h3>من:</h3>
+      <p>{{data.from | date:"fullDate"}}</p>
+    </div>
+    <div class="small">
+      <h3>إلي:</h3>
+      <p>{{data.to | date:"fullDate" }}</p>
+    </div>
+    <div>
+      <h3>تاريخ النشرة:</h3>
+      <p>{{data.publish_date | date:"fullDate"}}</p>
+    </div>
+  </div>
+  <div class="noMargin noPadding cols-3">
+    <div>
+      <h3>توصية المدير:</h3>
+      <p>{{data.recommendation == null || data.recommendation == undefined ? null : (data.recommendation ? 'يوصي' : 'لا يوصي')}}</p>
+    </div>
+    <div class="span-2">
+      <h3>سبب عدم التوصية:</h3>
+      <p>{{data.reason}}</p>
+    </div>
+  </div>
+</div>

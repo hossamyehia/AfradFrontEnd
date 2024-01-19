@@ -1,0 +1,101 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="space" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="cols-4">
+    <div >
+      <label class="inblock">نوع الأجازة:</label>
+      <select class="inblock" formControlName="type">
+        <option [value]="'أجازة بدون راتب'">أجازة بدون راتب</option>
+        <option [value]="'أجازة مرضية'">أجازة مرضية</option>
+        <option [value]="'أجازة سنوية'">أجازة سنوية</option>
+        <option [value]="'أجازة عارضة'">أجازة عارضة</option>
+      </select>
+    </div>
+    <div>
+      <label class="inblock">عدد الأيام:</label>
+      <input
+        class="inblock"
+        type="number"
+        max="31"
+        min="0"
+        formControlName="days"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">عدد الأشهر :</label>
+      <input
+        class="inblock"
+        type="number"
+        max="12"
+        min="0"
+        formControlName="months"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">عدد السنوات :</label>
+      <input
+        class="inblock"
+        type="number"
+        max="100"
+        min="0"
+        formControlName="years"
+        required
+      />
+    </div>
+
+  </div>
+  <div class="cols-4">
+    <div>
+      <label class="inblock">تاريخ بداية الأجازة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="from"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ نهاية الأجازة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="to"
+        required
+      />
+    </div>
+
+    <div class="span-2 btns">
+      <ng-container *ngIf="formType">
+        <button type="submit" [disabled]="!dataForm.valid">
+          إضافة
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!formType">
+        <button  type="submit" [disabled]="!dataForm.valid">
+          تعديل
+        </button>
+        <button type="reset" (click)="reset()">
+          إلغاء
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</form>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

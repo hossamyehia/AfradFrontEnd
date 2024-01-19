@@ -1,0 +1,68 @@
+<style>
+  :host ::ng-deep{
+    width: 100%;
+
+    margin: 0 auto;
+    padding: 0;
+  }
+</style>
+<div id="container">
+  <div class="cards-wrapper" >
+    <div class="card-container">
+      <div #card1 class="card" (mouseover)="rotate(card1)">
+        <div class="card-contents card-front">
+          <img src="./assets/images/hayaa.png">
+        </div>
+        <div class="card-contents card-back">
+          <img src="./assets/images/hayaa.png">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="circle">
+    <svg
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      x="0px"
+      y="0px"
+      width="100px"
+      height="100px"
+      viewBox="0 0 100 100"
+      enable-background="new 0 0 100 100"
+      xml:space="preserve"
+    >
+      <defs>
+        <path
+          id="circlePath"
+          d="M 50, 50 m -40, 0 a 40,40 0 0,1 80,0 a 40,40 0 0,1 -80,0 "
+        />
+      </defs>
+      <circle cx="50" cy="50" r="60" fill="hsla(0, 0%, 20%, 1)" />
+      <g>
+        <use xlink:href="#circlePath" fill="none" />
+        <text>
+          <textPath startOffset="100%" xlink:href="#circlePath">
+            منظومة الأفراد
+          </textPath>
+          <textPath startOffset="45%" xlink:href="#circlePath">
+            إدارة الوقود
+          </textPath>
+        </text>
+        <circle cx="50" cy="50" r="30" fill="hsl(195, 40%, 96%)" />
+      </g>
+    </svg>
+  </div>
+  <div class="cards-wrapper" >
+    <div class="card-container">
+      <div #card2 class="card" (mouseover)="rotate(card2)">
+        <div class="card-contents card-front">
+          <img src="./assets/images/waqood.jpg">
+        </div>
+        <div class="card-contents card-back">
+          <img src="./assets/images/waqood.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

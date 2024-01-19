@@ -1,0 +1,91 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="space" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="cols-4">
+    <div>
+      <label class="inblock">المدة:</label>
+      <select class="inblock" formControlName="period">
+        <option [value]="0">الأولي</option>
+        <option [value]="1">الثانية</option>
+      </select>
+    </div>
+    <div>
+      <label class="inblock">من:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="from"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">إلي:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="to"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ النشرة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="publish_date"
+        required
+      />
+    </div>
+  </div>
+  <div class="cols-4">
+    <div>
+      <label class="inblock">توصية المدير:</label>
+      <select class="inblock" formControlName="recommendation">
+        <option [value]="0">لا يوصي</option>
+        <option [value]="1">يوصي</option>
+      </select>
+    </div>
+
+    <div class="span-2">
+      <label class="inblock">سبب عدم التوصية:</label>
+      <input
+        class="inblock"
+        type="text"
+        formControlName="reason"
+      />
+    </div>
+
+    <div class="btns">
+      <ng-container *ngIf="formType">
+        <button type="submit" [disabled]="!dataForm.valid">
+          إضافة
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!formType">
+        <button  type="submit" [disabled]="!dataForm.valid">
+          تعديل
+        </button>
+        <button type="reset" (click)="reset()">
+          إلغاء
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+</form>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

@@ -1,0 +1,22 @@
+<style>
+    :host ::ng-deep {
+        margin: 0 auto;
+        width: 80%;
+
+        box-sizing: border-box;
+    }
+</style>
+
+
+
+<div class="subPageBody">
+    <div class="container">
+        <app-fea-form [data]="feaData" [formType]="formType"
+            (cancel)="resetFormType()"></app-fea-form>
+    </div>
+
+    <app-table [route]="'dataEntry'" [pageSize]="8" [operation]="true" [headers]="headers" [rows]="displayData"
+        (runOperation)="runOperation($event)"></app-table>
+</div>
+
+<app-message [type]="msgType" [show]="msgShow" [msg]="msgContent" (done)="msgDone()"></app-message>

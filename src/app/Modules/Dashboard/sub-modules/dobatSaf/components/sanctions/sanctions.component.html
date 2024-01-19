@@ -1,0 +1,122 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="space" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="cols-4">
+    <div class="span-2">
+      <label class="inblock">نوع الجريمة:</label>
+      <select class="inblock" formControlName="type_id">
+         <option *ngFor="let option of this.options1" [value]="option.id">
+          {{ option.name }}
+        </option>
+      </select>
+    </div>
+    <div class="span-2">
+      <label class="inblock">العقوبة :</label>
+      <select class="inblock" formControlName="decision_id">
+         <option *ngFor="let option of this.options2" [value]="option.id">
+          {{ option.name }}
+        </option>
+      </select>
+    </div>
+
+
+  </div>
+  <div class="cols-4">
+    <div>
+      <label class="inblock">متغيب من:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="absence_from"
+      />
+    </div>
+    <div>
+      <label class="inblock">متغيب حتي:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="absence_to"
+      />
+    </div>
+    <div>
+      <label class="inblock">محبوس من:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="imprisoned_from"
+      />
+    </div>
+    <div>
+      <label class="inblock">محبوس حتي:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="imprisoned_to"
+      />
+    </div>
+  </div>
+  <div class="cols-4">
+    <div>
+      <label class="inblock">تاريخ رفع الأثار:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="evidance_date"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ الجريمة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="crime_date"
+        required
+      />
+    </div>
+    <div class="span-2">
+      <label class="inblock">وصف الجريمة:</label>
+      <input
+        class="inblock"
+        type="text"
+        formControlName="description"
+      />
+    </div>
+  </div>
+  <div class="cols-4">
+    <div></div>
+    <div class="span-2 btns">
+      <ng-container *ngIf="formType">
+        <button type="submit" [disabled]="!dataForm.valid">
+          إضافة
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!formType">
+        <button  type="submit" [disabled]="!dataForm.valid">
+          تعديل
+        </button>
+        <button type="reset" (click)="reset()">
+          إلغاء
+        </button>
+      </ng-container>
+    </div>
+    <div></div>
+  </div>
+
+</form>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

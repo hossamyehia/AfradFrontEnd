@@ -1,0 +1,85 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="space" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="cols-4">
+    <div class="span-2">
+      <label class="inblock">الجهه:</label>
+      <input
+        class="inblock"
+        type="text"
+        formControlName="destination"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">رقم التصديق:</label>
+      <input
+        class="inblock"
+        type="text"
+        formControlName="approval_number"
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ التصديق:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="approval_date"
+        required
+      />
+    </div>
+  </div>
+  <div class="cols-4">
+    <div>
+      <label class="inblock">تاريج بداية البعثة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="from"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ نهاية البعثة:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="to"
+        required
+      />
+    </div>
+
+    <div class="span-2 btns">
+      <ng-container *ngIf="formType">
+        <button type="submit" [disabled]="!dataForm.valid">
+          إضافة
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!formType">
+        <button  type="submit" [disabled]="!dataForm.valid">
+          تعديل
+        </button>
+        <button type="reset" (click)="reset()">
+          إلغاء
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+</form>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

@@ -1,0 +1,95 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    padding: 0;
+  }
+</style>
+<nav [ngClass]="{ active }" class="dashboardNav">
+  <div class="navBody">
+    <div>
+      <label></label>
+      <a
+        [routerLink]="['/dashboard']"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        الصفحة الرئيسية
+      </a>
+    </div>
+
+    <div class="menu">
+      <label>ضباط الصف</label>
+      <div>
+        <a
+          *ngIf="routes['dobatSaf']"
+          [routerLink]="['/dashboard/dobatsaf', 'addedit']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          إضافة
+        </a>
+        <a
+          *ngIf="routes['dobatSaf']"
+          [routerLink]="['/dashboard/dobatsaf']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          عرض
+        </a>
+      </div>
+    </div>
+    <div *ngIf="routes['dataEntry']">
+      <label>المعلومات الأساسية</label>
+      <div>
+        <a
+          [routerLink]="['/dashboard/dataentry', 'fea']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          الفئات
+        </a>
+        <a
+          [routerLink]="['/dashboard/dataentry', 'daraga']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          الدرجات
+        </a>
+        <a
+          [routerLink]="['/dashboard/dataentry', 'wehda']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          الوحدات
+        </a>
+        <a
+          [routerLink]="['/dashboard/dataentry', 'selah']"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          الأسلحة
+        </a>
+      </div>
+    </div>
+    <div *ngIf="routes['role']">
+      <label></label>
+      <a
+        [routerLink]="['/dashboard/role']"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        أنواع الحسابات
+      </a>
+    </div>
+    <div *ngIf="routes['user']">
+      <label></label>
+      <a
+        [routerLink]="['/dashboard/user']"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        الحسابات
+      </a>
+    </div>
+  </div>
+</nav>

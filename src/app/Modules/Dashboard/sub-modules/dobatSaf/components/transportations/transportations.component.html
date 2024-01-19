@@ -1,0 +1,107 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="space" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="cols-4">
+    <div>
+      <label class="inblock">رقم التصديق:</label>
+      <input
+        class="inblock"
+        type="text"
+        formControlName="approval_number"
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ التصديق:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="approval_date"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">تاريخ التنفيذ:</label>
+      <input
+        class="inblock"
+        type="date"
+        formControlName="done_date"
+        required
+      />
+    </div>
+    <div>
+      <label class="inblock">السلاح:</label>
+      <select class="inblock" formControlName="selah_id">
+        <option *ngFor="let option of this.asleha" [value]="option.id">
+          {{ option.name }}
+        </option>
+      </select>
+
+    </div>
+
+  </div>
+  <div class="cols">
+    <div>
+      <label class="inblock">متجهه من:</label>
+      <ng-select class="inblock" [items]="wehdat" bindLabel="name" bindValue="id" formControlName="from_id" required></ng-select>
+      <!-- 
+      <select class="inblock" formControlName="from_id">
+        <ng-container *ngTemplateOutlet="wehdatOpts"></ng-container>
+      </select>
+       -->
+      <!--
+      <app-select [labelKey]="'name'" [options]="this.wehdat"></app-select>
+       -->
+    </div>
+    <div >
+      <label class="inblock">متجهه إلي:</label>
+      <ng-select class="inblock" [items]="wehdat" bindLabel="name" bindValue="id" formControlName="to_id" required></ng-select>
+      <!-- 
+      <select class="inblock" formControlName="to_id">
+        <ng-container *ngTemplateOutlet="wehdatOpts"></ng-container>
+      </select>
+       -->
+        <!--
+      <app-select [labelKey]="'name'" [options]="this.wehdat"></app-select>
+       -->
+    </div>
+    <div class="btns">
+      <ng-container *ngIf="formType">
+        <button type="submit" [disabled]="!dataForm.valid">
+          إضافة
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!formType">
+        <button  type="submit" [disabled]="!dataForm.valid">
+          تعديل
+        </button>
+        <button type="reset" (click)="reset()">
+          إلغاء
+        </button>
+      </ng-container>
+    </div>
+  </div>
+
+</form>
+<!-- 
+<ng-template #wehdatOpts>
+  <option *ngFor="let option of this.wehdat" [value]="option.id">
+    {{ option.name }}
+  </option>
+</ng-template>
+ -->
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

@@ -1,0 +1,60 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+  .btns{
+    padding: 0;
+  }
+</style>
+<form class="cols" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label class="inblock">عام:</label>
+    <input
+      class="inblock"
+      type="number"
+      min="1900"
+      max="2099"
+      step="1"
+      formControlName="year"
+      required
+    />
+  </div>
+  <div>
+    <label class="inblock">التقدير:</label>
+    <select class="inblock" formControlName="degree">
+      <option [value]="'ممتاز'">ممتاز</option>
+      <option [value]="'جيد جدا'">جيد جدا</option>
+      <option [value]="'جيد'">جيد</option>
+      <option [value]="'مقبول'">مقبول</option>
+      <option [value]="'راسب'">راسب</option>
+    </select>
+  </div>
+
+  <div class="btns">
+    <ng-container *ngIf="formType">
+      <button type="submit" [disabled]="!dataForm.valid">
+        إضافة
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!formType">
+      <button  type="submit" [disabled]="!dataForm.valid">
+        تعديل
+      </button>
+      <button type="reset" (click)="reset()">
+        إلغاء
+      </button>
+    </ng-container>
+  </div>
+
+
+</form>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

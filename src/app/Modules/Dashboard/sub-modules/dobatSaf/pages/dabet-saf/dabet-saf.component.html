@@ -1,0 +1,377 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 80%;
+
+    box-sizing: border-box;
+  }
+</style>
+
+<div class="subPageBody">
+  <div class="noMargin noPadding cols-4">
+    <div class="span-2"></div>
+    <div class="span-2 btns">
+      <a [routerLink]="['../addedit']" [queryParams]="{ id: id }">
+        <button type="submit">تعديل</button>
+      </a>
+      <button (click)="downloadAsPdf(contant)" type="submit">حفظ ك pdf</button>
+    </div>
+  </div>
+  <div class="container" #contant>
+    <div class="baseInfo">
+      <h3 class="baseInfoHeader">البيانات الاساسية</h3>
+      <div class="baseInfoBody">
+        <div class="row">
+          <div>
+            <h3 class="inblock">الرقم العسكري</h3>
+            <p class="inblock">{{ data?.rkmaskry }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">الاسم</h3>
+            <p class="inblock">{{ data?.name }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">تاريخ الميلاد</h3>
+            <p class="inblock">{{ data?.birth_date }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">الديانة</h3>
+            <p class="inblock">{{ data?.religion }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">فصيلة الدم</h3>
+            <p class="inblock">{{ data?.blood }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">الحالة الاجتماعية</h3>
+            <p class="inblock">{{ data?.marital_state }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">تاريخ الزواج</h3>
+            <p class="inblock">{{ data?.marriage_date }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">عدد الأبناء</h3>
+            <p class="inblock">{{ data?.number_of_sons }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">المحافظة</h3>
+            <p class="inblock">{{ data?.mohafza }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">المركز</h3>
+            <p class="inblock">{{ data?.markaz }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">العنوان</h3>
+            <p class="inblock">{{ data?.address }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">أقرب الأقارب</h3>
+            <p class="inblock">{{ data?.nearest }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">عنوان أقرب الأقارب</h3>
+            <p class="inblock">{{ data?.address2 }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="milInfo">
+      <h3 class="milInfoHeader">البيانات العسكرية</h3>
+      <div class="milInfoBody">
+        <div class="row">
+          <div>
+            <h3 class="inblock">الفئة</h3>
+            <p class="inblock">{{ data?.fea }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">الخدمة</h3>
+            <p class="inblock">{{ data?.khedma_status }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">الدرجة</h3>
+            <p class="inblock">{{ data?.daraga }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">تاريخ الترقي</h3>
+            <p class="inblock">{{ data?.taraky_date }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">مؤهل التطوع</h3>
+            <p class="inblock">{{ data?.moahel_tatwa }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">تاريخ التطوع</h3>
+            <p class="inblock">{{ data?.tatwa_date }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">أعلي مؤهل</h3>
+            <p class="inblock">{{ data?.highest_moahel }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">تاريخ صرف الراتب العالي</h3>
+            <p class="inblock">{{ data?.rateb3aly_date }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">السلاح</h3>
+            <p class="inblock">{{ data?.selah }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">سلاح الخدمة</h3>
+            <p class="inblock">{{ data?.selah_khedma }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">الوحدة</h3>
+            <p class="inblock">{{ data?.wehda }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">تاريخ الضم علي الوحدة</h3>
+            <p class="inblock">{{ data?.join_date }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">الوظيفة</h3>
+            <p class="inblock">{{ data?.job_title }}</p>
+          </div>
+          <div>
+            <h3 class="inblock">الوظيفة الإضافية</h3>
+            <p class="inblock">{{ data?.job_title_edafy }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <h3 class="inblock">التخصص</h3>
+            <p class="inblock">{{ data?.takhasos }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="tail"></span>
+  </div>
+
+  <div class="switch">
+    <nav class="controllers subInfoControllers">
+      <button
+        (click)="switchParts(0)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 0 }"
+      >
+        تواريخ الترقي
+      </button>
+      <button
+        (click)="switchParts(1)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 1 }"
+      >
+        التجديد
+      </button>
+      <button
+        (click)="switchParts(2)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 2 }"
+      >
+        تقرير الكفأة
+      </button>
+      <button
+        (click)="switchParts(3)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 3 }"
+      >
+        العقوبات الإنضباطية
+      </button>
+      <button
+        (click)="switchParts(4)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 4 }"
+      >
+        الاجازات
+      </button>
+      <button
+        (click)="switchParts(5)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 5 }"
+      >
+        البعثات
+      </button>
+      <button
+        (click)="switchParts(6)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 6 }"
+      >
+        التنقلات
+      </button>
+      <!--
+      <button
+        (click)="switchParts(7)"
+        type="button"
+        [ngClass]="{ actvTag: parts === 7 }"
+      >
+        المحاكم
+      </button>
+       -->
+    </nav>
+  </div>
+  <div class="multiInfo" [ngSwitch]="parts">
+    <ng-template [ngSwitchCase]="0">
+      <div class="container">
+        <app-ranks
+          [ID]="id"
+          [data]="rankData"
+          [formType]="ranksFormType"
+          (cancel)="resetFormType(0)"
+        ></app-ranks>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="ranksHeader"
+          [rows]="ranksData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="1">
+      <div class="container">
+        <app-renewals
+          [ID]="id"
+          [data]="renewalPeriod"
+          [formType]="renewalFormType"
+          (cancel)="resetFormType(1)"
+        ></app-renewals>
+        <div>
+          <app-renewals-display
+            [period]="'المدة الأولي'"
+            [data]="renewalPeriods[0]"
+            (runOperation)="runOperation($event)"
+          ></app-renewals-display>
+          <app-renewals-display
+            [period]="'المدة الثانية'"
+            [data]="renewalPeriods[1]"
+            (runOperation)="runOperation($event)"
+          ></app-renewals-display>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="2">
+      <div class="container">
+        <app-efficiency-reports
+          [ID]="id"
+          [data]="reportData"
+          [formType]="reportsFormType"
+          (cancel)="resetFormType(2)"
+        ></app-efficiency-reports>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="reportsHeader"
+          [rows]="reportsData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="3">
+      <div class="container">
+        <app-sanctions
+          [ID]="id"
+          [data]="sanctionData"
+          [formType]="sanctionsFormType"
+          (cancel)="resetFormType(3)"
+        >
+        </app-sanctions>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="sanctionsHeader"
+          [rows]="sanctionsData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="4">
+      <div class="container">
+        <app-vacations
+          [ID]="id"
+          [data]="vacationData"
+          [formType]="vacationsFormType"
+          (cancel)="resetFormType(4)"
+        ></app-vacations>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="vacationsHeader"
+          [rows]="vacationsData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="5">
+      <div class="container">
+        <app-missions
+          [ID]="id"
+          [data]="missionData"
+          [formType]="missionsFormType"
+          (cancel)="resetFormType(5)"
+        ></app-missions>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="missionsHeader"
+          [rows]="missionsData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <ng-template [ngSwitchCase]="6">
+      <div class="container">
+        <app-transportations
+          [ID]="id"
+          [data]="transportationData"
+          [formType]="transportationsFormType"
+          (cancel)="resetFormType(6)"
+        ></app-transportations>
+        <app-table
+          [route]="'dabetinfo'"
+          [pageSize]="5"
+          [operation]="true"
+          [headers]="transportationsHeader"
+          [rows]="transportationsData"
+          (runOperation)="runOperation($event)"
+        ></app-table>
+      </div>
+    </ng-template>
+    <!--
+    <ng-template [ngSwitchCase]="7"></ng-template>
+     -->
+  </div>
+</div>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>

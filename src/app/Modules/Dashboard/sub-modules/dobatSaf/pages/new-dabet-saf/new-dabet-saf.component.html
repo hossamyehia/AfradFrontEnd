@@ -1,0 +1,478 @@
+<style>
+  :host ::ng-deep {
+    margin: 0 auto;
+    width: 80%;
+
+    box-sizing: border-box;
+  }
+</style>
+
+<div class="subPageBody">
+  <ng-container *ngIf="loading">
+    <div class="container">
+      <div class="spinner"></div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!loading">
+    <form class="container" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="baseInfo">
+        <h3 class="baseInfoHeader">البيانات الاساسية</h3>
+        <div class="baseInfoBody">
+          <div class="row">
+            <div>
+              <label class="inblock">الرقم العسكري <span>*</span></label>
+              <input
+                class="inblock"
+                type="text"
+                name="rkmaskry"
+                formControlName="rkmaskry"
+              />
+            </div>
+            <div>
+              <label class="inblock">الاسم <span>*</span></label>
+              <input
+                class="inblock"
+                type="text"
+                name="name"
+                formControlName="name"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">تاريخ الميلاد <span>*</span></label>
+              <input
+                class="inblock"
+                type="date"
+                name="birth_date"
+                formControlName="birth_date"
+              />
+            </div>
+            <div>
+              <label class="inblock">الديانة <span>*</span></label>
+              <select
+                class="inblock"
+                name="religion"
+                formControlName="religion"
+                required
+              >
+                <option [value]="'مسلم'">مسلم</option>
+                <option [value]="'مسيحي'">مسيحي</option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">فصيلة الدم <span>*</span></label>
+              <select
+                class="inblock"
+                name="blood"
+                formControlName="blood"
+                required
+              >
+                <option [value]="'A'">A</option>
+                <option [value]="'AB'">AB</option>
+                <option [value]="'B'">B</option>
+                <option [value]="'O'">O</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">الحالة الاجتماعية <span>*</span></label>
+              <select
+                class="inblock"
+                name="marital_state"
+                formControlName="marital_state"
+                required
+              >
+                <option [value]="'أعزب'">أعزب</option>
+                <option [value]="'متزوج ويعول'">متزوج ويعول</option>
+                <option [value]="'متزوج'">متزوج</option>
+                <option [value]="'أرمل'">أرمل</option>
+                <option [value]="'مطلق'">مطلق</option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">تاريخ الزواج</label>
+              <input
+                class="inblock"
+                type="date"
+                name="marriage_date"
+                formControlName="marriage_date"
+              />
+            </div>
+            <div>
+              <label class="inblock">عدد الأبناء</label>
+              <input
+                class="inblock"
+                type="number"
+                min="0"
+                name="number_of_sons"
+                formControlName="number_of_sons"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">المحافظة <span>*</span></label>
+              <select
+                #mohafza
+                class="inblock"
+                name="mohafza_id"
+                formControlName="mohafza_id"
+                (change)="selectMohafza(mohafza)"
+                required
+              >
+                <option *ngFor="let mohafza of mohafzat" [value]="mohafza.id">
+                  {{ mohafza.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">المركز <span>*</span></label>
+              <select
+                class="inblock"
+                name="markaz_id"
+                formControlName="markaz_id"
+                required
+              >
+                <option *ngFor="let markaz of marakz" [value]="markaz.id">
+                  {{ markaz.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">العنوان <span>*</span></label>
+              <input
+                class="inblock"
+                type="text"
+                name="address"
+                formControlName="address"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">أقرب الأقارب <span>*</span></label>
+              <input
+                class="inblock"
+                type="text"
+                name="nearest"
+                formControlName="nearest"
+              />
+            </div>
+            <div>
+              <label class="inblock">عنوان أقرب الأقارب <span>*</span></label>
+              <input
+                class="inblock"
+                type="text"
+                name="address2"
+                formControlName="address2"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="milInfo">
+        <h3 class="milInfoHeader">البيانات العسكرية</h3>
+        <!-- 
+        <div class="switch">
+          <nav class="controllers milInfoControllers">
+            <button
+              (click)="switchParts(0)"
+              type="button"
+              [ngClass]="{ actvTag: parts === 0 }"
+            >
+              الجزء الأول
+            </button>
+            <button
+              (click)="switchParts(1)"
+              type="button"
+              [ngClass]="{ actvTag: parts === 1 }"
+            >
+              الجزء الثاني
+            </button>
+            <button
+              (click)="switchParts(2)"
+              type="button"
+              [ngClass]="{ actvTag: parts === 2 }"
+            >
+              الجزء الثالث
+            </button>
+            <button
+              (click)="switchParts(3)"
+              type="button"
+              [ngClass]="{ actvTag: parts === 3 }"
+            >
+              الجزء الرابع
+            </button>
+          </nav>
+        </div>
+         -->
+        <div class="milInfoBody">
+          <div class="row">
+            <div>
+              <label class="inblock">الفئة <span>*</span></label>
+              <select
+                class="inblock"
+                name="fea_id"
+                formControlName="fea_id"
+                required
+              >
+                <option *ngFor="let fea of feaat" [value]="fea.id">
+                  {{ fea.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">الخدمة <span>*</span></label>
+              <select
+                class="inblock"
+                name="khedma_id"
+                formControlName="khedma_id"
+                required
+              >
+                <option
+                  *ngFor="let khemda of khedmaStatus"
+                  [value]="khemda.id"
+                >
+                  {{ khemda.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">الدرجة <span>*</span></label>
+              <select
+                class="inblock"
+                name="daraga_id"
+                formControlName="daraga_id"
+                required
+              >
+                <option *ngFor="let daraga of daragat" [value]="daraga.id">
+                  {{ daraga.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">تاريخ الترقي <span>*</span></label>
+              <input
+                class="inblock"
+                type="date"
+                name="taraky_date"
+                formControlName="taraky_date"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">مؤهل التطوع <span>*</span></label>
+              <select
+                class="inblock"
+                name="moahel_tatwa_id"
+                formControlName="moahel_tatwa_id"
+                required
+              >
+                <option
+                  *ngFor="let qualification of qualifications"
+                  [value]="qualification.id"
+                >
+                  {{ qualification.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock">تاريخ التطوع <span>*</span></label>
+              <input
+                class="inblock"
+                type="date"
+                name="tatwa_date"
+                formControlName="tatwa_date"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">أعلي مؤهل <span>*</span></label>
+              <select
+                class="inblock"
+                name="highest_moahel_id"
+                formControlName="highest_moahel_id"
+                required
+              >
+                <option
+                  *ngFor="let qualification of qualifications"
+                  [value]="qualification.id"
+                >
+                  {{ qualification.name }}
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="inblock"
+                >تاريخ صرف الراتب العالي <span>*</span></label
+              >
+              <input
+                class="inblock"
+                type="date"
+                name="rateb3aly_date"
+                formControlName="rateb3aly_date"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">السلاح <span>*</span></label>
+              <ng-select class="inblock" [items]="asleha" bindLabel="name" bindValue="id" formControlName="selah_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="selah_id"
+                formControlName="selah_id"
+                required
+              >
+                <option *ngFor="let selah of asleha" [value]="selah.id">
+                  {{ selah.name }}
+                </option>
+              </select>
+               -->
+            </div>
+            <div>
+              <label class="inblock">سلاح الخدمة <span>*</span></label>
+              <ng-select class="inblock" [items]="asleha" bindLabel="name" bindValue="id" formControlName="selah_khedma_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="selah_khedma_id"
+                formControlName="selah_khedma_id"
+                required
+              >
+                <option *ngFor="let selah of asleha" [value]="selah.id">
+                  {{ selah.name }}
+                </option>
+              </select>
+               -->
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">الوحدة <span>*</span></label>
+              <ng-select class="inblock" [items]="wehdat" bindLabel="name" bindValue="id" formControlName="wehda_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="wehda_id"
+                formControlName="wehda_id"
+                required
+              >
+                <ng-container *ngTemplateOutlet="wehdatOpts"></ng-container>
+              </select>
+               -->
+            </div>
+            <div>
+              <label class="inblock"
+                >تاريخ الضم علي الوحدة <span>*</span></label
+              >
+              <input
+                class="inblock"
+                type="date"
+                name="join_date"
+                formControlName="join_date"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">الوظيفة <span>*</span></label>
+              <ng-select class="inblock" [items]="jobs" bindLabel="name" bindValue="id" formControlName="job_title_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="job_title_id"
+                formControlName="job_title_id"
+                required
+              >
+                <option *ngFor="let job of jobs" [value]="job.id">
+                  {{ job.name }}
+                </option>
+              </select>
+               -->
+            </div>
+            <div>
+              <label class="inblock">التخصص <span>*</span></label>
+              <ng-select class="inblock" [items]="jobs" bindLabel="name" bindValue="id" formControlName="takhasos_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="takhasos_id"
+                formControlName="takhasos_id"
+                required
+              >
+                <option *ngFor="let job of jobs" [value]="job.id">
+                  {{ job.name }}
+                </option>
+              </select>
+               -->
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label class="inblock">الوظيفة الإضافية <span>*</span></label>
+              <ng-select class="inblock" [items]="jobs" bindLabel="name" bindValue="id" formControlName="job_title_edafy_id" required></ng-select>
+              <!-- 
+              <select
+                class="inblock"
+                name="job_title_edafy_id"
+                formControlName="job_title_edafy_id"
+                required
+              >
+                <option *ngFor="let job of jobs" [value]="job.id">
+                  {{ job.name }}
+                </option>
+              </select>
+               -->
+            </div>
+          </div>
+          <!-- 
+          <ng-container *ngIf="parts === 0">
+            
+          </ng-container>
+          <ng-container *ngIf="parts === 1">
+            
+          </ng-container>
+          <ng-container *ngIf="parts === 2">
+            
+          </ng-container>
+          <ng-container *ngIf="parts === 3">
+            
+          </ng-container>
+           -->
+        </div>
+      </div>
+
+      <div class="btns">
+        <ng-container *ngIf="!id">
+          <button type="submit" [disabled]="!form.valid">إضافة</button>
+        </ng-container>
+        <ng-container *ngIf="id">
+          <button type="submit" [disabled]="!form.valid">تعديل</button>
+          <button type="reset" (click)="reset()">إلغاء</button>
+        </ng-container>
+      </div>
+    </form>
+  </ng-container>
+</div>
+
+<app-message
+  [type]="msgType"
+  [show]="msgShow"
+  [msg]="msgContent"
+  (done)="msgDone()"
+></app-message>
+<!-- 
+<ng-template #wehdatOpts>
+  <option *ngFor="let option of this.wehdat" [value]="option.id">
+    {{ option.name }}
+  </option>
+</ng-template>
+ -->
