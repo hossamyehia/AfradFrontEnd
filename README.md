@@ -76,6 +76,3 @@ this is the important Files u will need if u want to edit something
 
 
 &nbsp;
-
-,
-              "node_modules/@ng-select/ng-select/themes/default.theme.css"
